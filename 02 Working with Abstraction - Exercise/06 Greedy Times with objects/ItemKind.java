@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public enum ItemKind {
-    Gold(new ArrayList<>()),
-    Gem(new ArrayList<>()),
-    Cash(new ArrayList<>());
+    GOLD(new ArrayList<>()),
+    GEM(new ArrayList<>()),
+    CASH(new ArrayList<>());
 
     private List<Item> listOfItems;
 
@@ -41,9 +41,12 @@ public enum ItemKind {
         return this.listOfItems.stream().filter(s -> s.getName().equals(name)).findFirst().orElse(null);
     }
 
-    @Override
-    public String toString() {
-        return "<" +  this.name() + "> $" + this.sumQuantity() + System.lineSeparator() +
+    public static ItemKind parse(String str) {
+        return ItemKind.valueOf(str.toUpperCase());
+    }
+
+    public String getInfo() {
+        return "<" +  this.name().charAt(0) + this.name().substring(1).toLowerCase() + "> $" + this.sumQuantity() + System.lineSeparator() +
                 this.getListOfItems().stream().
                         sorted(Comparator.comparing(Item::getName, Comparator.reverseOrder())).
                         map(Item::toString).collect(Collectors.joining(System.lineSeparator()));
