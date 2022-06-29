@@ -37,28 +37,29 @@ public class Main {
     }
 
     private static void putItemInBag(List<ItemKind> bag) {
-        if(bag.contains(ItemKind.valueOf(itemKind))) {
-            int index = bag.indexOf(ItemKind.valueOf(itemKind));
+        if(bag.contains(ItemKind.parse(itemKind))) {
+            int index = bag.indexOf(ItemKind.parse(itemKind));
             ItemKind itemKindToUpdate = bag.get(index);
             itemKindToUpdate.addItem(item, quantity);
         } else {
+            Item itemToPut = new Item(item, quantity);
             List<Item> listToPut = new ArrayList<>();
-            listToPut.add(new Item(item, quantity));
-            ItemKind.valueOf(itemKind).setListOfItems(listToPut);
-            bag.add(ItemKind.valueOf(itemKind));
+            listToPut.add(itemToPut);
+            ItemKind.parse(itemKind).setListOfItems(listToPut);
+            bag.add(ItemKind.parse(itemKind));
         }
 
         quantityInTheBag += quantity;
     }
 
     private static void print(List<ItemKind> bag) {
-        bag.forEach(System.out::println);
+        bag.forEach(s -> System.out.println(s.getInfo()));
     }
 
     private static boolean notCoverRules() {
-        long goldInBag = ItemKind.Gold.sumQuantity();
-        long gemInBag = ItemKind.Gem.sumQuantity();
-        long newItemKindQuantity = ItemKind.valueOf(itemKind).sumQuantity() + quantity;
+        long goldInBag = ItemKind.GOLD.sumQuantity();
+        long gemInBag = ItemKind.GEM.sumQuantity();
+        long newItemKindQuantity = ItemKind.parse(itemKind).sumQuantity() + quantity;
 
         if (itemKind.equals("Gem") && quantity > goldInBag) {
             return true;
