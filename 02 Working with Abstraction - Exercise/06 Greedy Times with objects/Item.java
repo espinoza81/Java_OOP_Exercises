@@ -1,7 +1,7 @@
 package greedyTimes;
 
 public class Item {
-    private final String name;
+    private String name;
     private long quantity;
 
     public Item(String name, long quantity) {
@@ -11,6 +11,10 @@ public class Item {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public long getQuantity() {
