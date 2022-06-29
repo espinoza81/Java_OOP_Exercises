@@ -1,19 +1,19 @@
 package pointInRectangle;
 
 public class Point {
-    private int X;
-    private int Y;
+    private final int X;
+    private final int Y;
 
     public Point(int coordinateX, int coordinateY) {
         this.X = coordinateX;
         this.Y = coordinateY;
     }
 
-    public int getX() {
-        return X;
+    public boolean greaterThan (Point other) {
+        return X >= other.X && Y >= other.Y;
     }
 
-    public int getY() {
-        return Y;
+    public boolean smallerThan (Point other) {
+        return X <= other.X && Y <= other.Y;
     }
 }
