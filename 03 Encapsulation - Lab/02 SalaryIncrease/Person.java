@@ -14,12 +14,11 @@ public class Person {
     }
 
     public void increaseSalary(double bonus) {
-        if(this.age < 30) {
+        if (this.age < 30) {
             bonus /= 2;
         }
 
-        double newSalary = this.getSalary()*(1 + bonus/100);
-        this.setSalary(newSalary);
+        this.salary = this.salary * (1 + bonus / 100);
     }
 
     public String getFullName() {
