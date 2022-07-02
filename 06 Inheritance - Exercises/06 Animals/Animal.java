@@ -53,6 +53,6 @@ public class Animal {
     }
 
     public String produceSound() {
-        return "sound";
+        return null;
     }
 }
