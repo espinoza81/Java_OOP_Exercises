@@ -9,4 +9,9 @@ public class Dog extends Animal {
     public String produceSound() {
         return Messages.DOG_SOUND;
     }
+    
+    @Override
+    public String toString() {
+        return super.toString() + produceSound();
+    }
 }
