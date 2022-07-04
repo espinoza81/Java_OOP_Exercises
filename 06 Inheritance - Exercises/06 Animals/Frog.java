@@ -9,4 +9,9 @@ public class Frog extends Animal {
     public String produceSound() {
         return Messages.FROG_SOUND;
     }
+    
+    @Override
+    public String toString() {
+        return super.toString() + produceSound();
+    }
 }
