@@ -1,6 +1,6 @@
 package animals;
 
-public class Animal {
+public abstract class Animal {
 
     private String name;
     private int age;
@@ -52,7 +52,5 @@ public class Animal {
         this.gender = gender;
     }
 
-    public String produceSound() {
-        return null;
-    }
+    public abstract String produceSound();
 }
