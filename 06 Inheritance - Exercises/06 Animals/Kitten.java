@@ -1,6 +1,6 @@
 package animals;
 
-public class Kitten extends Cat {
+public class Kitten extends Cat implements Sound {
     private static final String GENDER = "Female";
 
     public Kitten(String name, int age) {
