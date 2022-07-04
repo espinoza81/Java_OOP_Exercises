@@ -15,8 +15,7 @@ public class Animal {
     @Override
     public String toString(){
         return this.getClass().getSimpleName() + System.lineSeparator() +
-                this.name + " " + age + " " + gender + System.lineSeparator() +
-                this.produceSound();
+                this.name + " " + age + " " + gender + System.lineSeparator();
     }
 
     public String getName() {
