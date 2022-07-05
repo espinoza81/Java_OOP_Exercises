@@ -55,7 +55,6 @@ public class Main {
 
     private static void removePlayer(String teamName) {
         //"Remove;{TeamName};{PlayerName}" – remove the player from the team
-//        tempTeam = getTeam(teamName);
         String playerName = input[2];
         if(teams.containsKey(teamName)) {
             tempTeam = getTeam(teamName);
