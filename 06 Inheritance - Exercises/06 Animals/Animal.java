@@ -1,6 +1,6 @@
 package animals;
 
-public class Animal {
+public class Animal implements Sound {
 
     private String name;
     private int age;
@@ -15,9 +15,15 @@ public class Animal {
     @Override
     public String toString(){
         return this.getClass().getSimpleName() + System.lineSeparator() +
-                this.name + " " + age + " " + gender + System.lineSeparator();
+                this.name + " " + age + " " + gender + System.lineSeparator() +
+                produceSound();
     }
 
+    @Override
+    public String produceSound() {
+        return "";
+    }
+    
     public String getName() {
         return name;
     }
