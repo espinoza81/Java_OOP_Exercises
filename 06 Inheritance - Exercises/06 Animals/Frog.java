@@ -9,9 +9,4 @@ public class Frog extends Animal implements Sound {
     public String produceSound() {
         return Messages.FROG_SOUND;
     }
-    
-    @Override
-    public String toString() {
-        return super.toString() + produceSound();
-    }
 }
