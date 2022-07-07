@@ -9,9 +9,4 @@ public class Cat extends Animal implements Sound {
     public String produceSound() {
         return Messages.CAT_SOUND;
     }
-    
-    @Override
-    public String toString() {
-        return super.toString() + produceSound();
-    }
 }
