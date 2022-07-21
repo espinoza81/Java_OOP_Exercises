@@ -14,7 +14,7 @@ public class UnitFactoryImpl implements UnitFactory {
 	@Override
 	public Unit createUnit(String unitType) throws ExecutionControl.NotImplementedException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
 		// TODO: implement for problem 3
-		Class<?> reflection = Class.forName("barracksWars.models.units." + unitType);
+		Class<?> reflection = Class.forName(UNITS_PACKAGE_NAME + unitType);
 
 		Unit newInstance = (Unit) reflection.getDeclaredConstructor().newInstance();
 
