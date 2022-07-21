@@ -8,18 +8,17 @@ import java.lang.reflect.InvocationTargetException;
 
 public class UnitFactoryImpl implements UnitFactory {
 
-	private static final String UNITS_PACKAGE_NAME =
-			"barracksWars.models.units.";
+    private static final String UNITS_PACKAGE_NAME =
+            "barracksWars.models.units.";
 
-	@Override
-	public Unit createUnit(String unitType) throws ExecutionControl.NotImplementedException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-		// TODO: implement for problem 3
-		Class<?> reflection = Class.forName(UNITS_PACKAGE_NAME + unitType);
+    @Override
+    public Unit createUnit(String unitType) throws ExecutionControl.NotImplementedException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        // TODO: implement for problem 3
+		
+        Class<?> reflection = Class.forName(UNITS_PACKAGE_NAME + unitType);
 
-		Unit newInstance = (Unit) reflection.getDeclaredConstructor().newInstance();
+	// throw new ExecutionControl.NotImplementedException("message");
 
-//		throw new ExecutionControl.NotImplementedException("message");
-
-		return newInstance;
-	}
+        return (Unit) reflection.getDeclaredConstructor().newInstance();
+    }
 }
