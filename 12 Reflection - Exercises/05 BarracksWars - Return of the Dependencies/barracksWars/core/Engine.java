@@ -1,15 +1,16 @@
 package barracksWars.core;
 
-import barracksWars.interfaces.*;
+import barracksWars.interfaces.CommandInterpreter;
+import barracksWars.interfaces.Executable;
 import barracksWars.interfaces.Runnable;
-import jdk.jshell.spi.ExecutionControl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.InvocationTargetException;
 
 public class Engine implements Runnable {
+
+	private final String END_COMMAND = "fight";
 
 	private final CommandInterpreter commandInterpreter;
 
@@ -18,23 +19,25 @@ public class Engine implements Runnable {
 	}
 
 	@Override
-	public void run() throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-		BufferedReader reader = new BufferedReader(
-				new InputStreamReader(System.in));
-		while (true) {
+	public void run() throws IOException {
+		final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+		String input;
+
+		while (!END_COMMAND.equals(input = reader.readLine())) {
+
 			try {
-				String input = reader.readLine();
 				String[] data = input.split("\\s+");
-				String commandName = data[0];
+
+				final String commandName = data[0];
+
 				Executable executable = this.commandInterpreter.interpretCommand(data, commandName);
+
 				String result = executable.execute();
-				if (result.equals("fight")) {
-					break;
-				}
+
 				System.out.println(result);
-			} catch (RuntimeException e) {
-				System.out.println(e.getMessage());
-			} catch (IOException | ExecutionControl.NotImplementedException e) {
+			} catch (Exception e) {
+
 				e.printStackTrace();
 			}
 		}
