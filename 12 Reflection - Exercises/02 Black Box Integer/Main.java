@@ -4,32 +4,43 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Main {
+    private final static Scanner CONSOLE = new Scanner(System.in);
+    private final static String END_COMMAND = "END";
+    private final static Map<String, Method> blackBoxIntMethods =
+            Arrays.stream(BlackBoxInt.class.getDeclaredMethods()).
+                    peek(method -> method.setAccessible(true)).
+                    collect(Collectors.toMap(Method::getName, method -> method));
+
+
     public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchFieldException {
 
-        Class<?> reflection = BlackBoxInt.class;
-
-        Constructor constructor = reflection.getDeclaredConstructor(int.class);
-
+        final Constructor<?> constructor = BlackBoxInt.class.getDeclaredConstructor(int.class);
         constructor.setAccessible(true);
 
-        BlackBoxInt instance = (BlackBoxInt) constructor.newInstance(0);
+        BlackBoxInt blackBoxInt = (BlackBoxInt) constructor.newInstance(0);
 
-        Scanner console = new Scanner(System.in);
+        Field innerValue = BlackBoxInt.class.getDeclaredField("innerValue");
+        innerValue.setAccessible(true);
+
         String command;
 
-        while (!"END".equals(command = console.nextLine())) {
+        while (!END_COMMAND.equals(command = CONSOLE.nextLine())) {
             String[] attributes = command.split("_");
+            String methodFromConsole = attributes[0];
+            Integer value = Integer.parseInt(attributes[1]);
 
-            Method method = reflection.getDeclaredMethod(attributes[0], int.class);
-            method.setAccessible(true);
-            method.invoke(instance, Integer.parseInt(attributes[1]));
+            Method method = blackBoxIntMethods.get(methodFromConsole);
+            method.invoke(blackBoxInt, value);
 
-            Field innerValue = reflection.getDeclaredField("innerValue");
-            innerValue.setAccessible(true);
-            System.out.println(innerValue.getInt(instance));
+            System.out.println(innerValue.getInt(blackBoxInt));
         }
+
+        CONSOLE.close();
     }
 }
